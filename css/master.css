@@ -19,3 +19,33 @@ li{
 .red{
   color: red;
 }
+
+h1.active{
+  display: block;
+}
+h1{
+  display: none;
+}
+
+
+.giorni-mese.active{
+  display: block;
+}
+
+.giorni-mese{
+  display: none;
+}
+
+.prev, .next {
+    position: absolute;
+    color: #565a5c;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 40px;
+    cursor: pointer;
+}
+.next {
+    left: auto;
+    right: 0;
+}

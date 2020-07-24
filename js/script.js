@@ -6,7 +6,7 @@ function printMonth(currentMonth) {
 
   var template = $('#day-template').html();
   var compiled = Handlebars.compile(template);
-  var target = $('.giorni-mese');
+  var target = $('.giorni-mese.active');
 
   target.html("");
 
@@ -22,6 +22,7 @@ function printMonth(currentMonth) {
 
 }
 
+// facciamo comparire le festività
 function printHoliday(currentMonth) {
   var year = currentMonth.year();
   var month = currentMonth.month();
@@ -54,11 +55,63 @@ function printHoliday(currentMonth) {
 }
 
 
+// Cambio mese
+function switchMonth(){
+
+  var nextButton = $('.next');
+  var prevButton = $('.prev');
+
+// Mese successivo
+nextButton.click(function(){
+  var currentMonth = $(".giorni-mese.active");
+  var currentTitle = $("h1.active");
+
+// Cambio ul
+  var nextMonth = currentMonth.next();
+    currentMonth.removeClass("active");
+    nextMonth.addClass("active");
+
+// Cambio h1
+  var nextTitle = currentTitle.next();
+    currentTitle.removeClass("active");
+    nextTitle.addClass("active");
+
+  });
+
+
+
+// Mese precendente
+prevButton.click(function(){
+  var currentMonth = $(".giorni-mese.active");
+  var currentTitle = $("h1.active");
+
+// Cambio ul
+  var prevMonth = currentMonth.next();
+    currentMonth.removeClass("active");
+    prevMonth.addClass("active");
+
+// Cambio h1
+  var prevTitle = currentTitle.next();
+    currentTitle.removeClass("active");
+    prevTitle.addClass("active");
+
+  });
+
+}
 
 function init() {
-  var currentMonth = moment("2018-01-01");
+  var anno = 2018;
+  var month;
+
+  for(var i = 1; i <= 12; i++){
+      month = i;
+      var currentMonth = moment(anno + "-" + month + "-01");
+  }
+
+
   printMonth(currentMonth);
   printHoliday(currentMonth);
+  switchMonth();
 
 }
 
