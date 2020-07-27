@@ -1,5 +1,4 @@
-
-// milestone1 - creiamo il mese di gennaio
+// Milestone1 - creiamo il mese di gennaio
 function printMonth(currentMonth) {
   var daysInMonth = currentMonth.daysInMonth();
 
@@ -55,64 +54,92 @@ function printHoliday(currentMonth) {
 }
 
 
-// Cambio mese
-function switchMonth(currentMonth){
-
-  var nextButton = $('.next');
-  var prevButton = $('.prev');
-
-// Mese successivo
-nextButton.click(function(){
-  var currentMonth = $(".giorni-mese.active");
-  var currentTitle = $("h1.active");
-
-
-// Cambio ul
-  var nextMonth = currentMonth.next();
-    currentMonth.removeClass("active");
-    nextMonth.addClass("active");
-
-
-// Cambio h1
-
-  var nextTitle = currentTitle.next();
-    currentTitle.removeClass("active");
-    nextTitle.addClass("active");
-
-  });
-
-
-
-// Mese precendente
-prevButton.click(function(){
-  var currentMonth = $(".giorni-mese.active");
-  var currentTitle = $("h1.active");
-
-// Cambio ul
-  var prevMonth = currentMonth.prev();
-    currentMonth.removeClass("active");
-    prevMonth.addClass("active");
-
-// Cambio h1
-  var prevTitle = currentTitle.prev();
-    currentTitle.removeClass("active");
-    prevTitle.addClass("active");
-
-  });
-
-}
-
+// // Milestone 2 - cambiamo mese
+// function switchMonth(currentMonth){
 //
-// function nextMonth(currentMonth) {
-//   var nextMonthClick = $(".next");
-//   nextMonthClick.click(function () {
-//     currentMonth.add(1, "months");
-//     printMonth(currentMonth);
-//     printHoliday(currentMonth);
+//   var nextButton = $('.next');
+//   var prevButton = $('.prev');
 //
-//   })
-// };
+// // Mese successivo
+// nextButton.click(function(){
+//   var currentMonth = $(".giorni-mese.active");
+//   var currentTitle = $("h1.active");
 //
+//
+// // Cambio ul
+//   var nextMonth = currentMonth.next();
+//     currentMonth.removeClass("active");
+//     nextMonth.addClass("active");
+//
+//
+// // Cambio h1
+//
+//   var nextTitle = currentTitle.next();
+//     currentTitle.removeClass("active");
+//     nextTitle.addClass("active");
+//
+//   });
+//
+//
+//
+// // Mese precendente
+// prevButton.click(function(){
+//   var currentMonth = $(".giorni-mese.active");
+//   var currentTitle = $("h1.active");
+//
+// // Cambio ul
+//   var prevMonth = currentMonth.prev();
+//     currentMonth.removeClass("active");
+//     prevMonth.addClass("active");
+//
+// // Cambio h1
+//   var prevTitle = currentTitle.prev();
+//     currentTitle.removeClass("active");
+//     prevTitle.addClass("active");
+//
+//   });
+//
+// }
+
+function nextMonth(currentMonth) {
+  var nextMonthClick = $(".next");
+  nextMonthClick.click(function () {
+    currentMonth.add(1, "months");
+    if (currentMonth.year() == "2019") {
+      currentMonth.subtract(1, "months")
+      alert("spiacente dati non disponibili");
+    } else {
+      printMonth(currentMonth);
+      printHoliday(currentMonth);
+      var template = $("#template2").html();
+      var compiled = Handlebars.compile(template);
+      var target = $("#current-month");
+      target.html("");
+      target.append(currentMonth.format("MMMM-YYYY"));
+    }
+  })
+};
+
+function prevMonth(currentMonth) {
+  var prevMonthClick = $(".prev");
+  prevMonthClick.click(function () {
+    currentMonth.subtract(1, "months");
+    if (currentMonth.year() == "2017") {
+      currentMonth.add(1, "months")
+      alert("spiacente dati non disponibili");
+    } else {
+      printMonth(currentMonth);
+      printHoliday(currentMonth);
+      var template = $("#template2").html();
+      var compiled = Handlebars.compile(template);
+      var target = $("#current-month");
+      target.html("");
+      target.append(currentMonth.format("MMMM-YYYY"));
+    }
+  })
+};
+
+
 
 
 function init() {
@@ -121,7 +148,8 @@ function init() {
 
   printMonth(currentMonth);
   printHoliday(currentMonth);
-  switchMonth(currentMonth);
+  nextMonth(currentMonth);
+  prevMonth(currentMonth);
 
 }
 
